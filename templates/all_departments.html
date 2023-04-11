@@ -1,0 +1,73 @@
+{% extends "base/base.html" %}
+{% block body %}
+
+
+
+<div class="container">
+    <h1>Departments List</h1>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Department Name</th>
+                <th scope="col">Teachers</th>
+                <th scope="col">Students</th>
+                {% if request.user.is_authenticated and request.user.role.name == "admin" %}
+                <th scope="col">Action</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if request.user.is_authenticated and request.user.role.name == 'admin' %}
+				<a class="btn btn-info btn-sm" href="{% url 'department_create' %}">Create Department</a>
+				{% endif %}
+            {% for department in departments %}
+            <tr>
+                <td>{{department.name}}</td>
+                <td>
+                    {% if department.teachers.all %}
+                    <select class="form-control">
+                    {% for teacher in department.teachers.all %}
+                    <option>{{ teacher.user.email }}</option>
+                    {% endfor %}
+                </select>
+                {% else %}
+                <p>No Teachers exist in this Department</p>
+                {% endif %}
+                </td>
+
+
+                <td>
+                    {% if department.students.all %}
+                    <select class="form-control">
+                    {% for student in department.students.all %}
+                    <option>{{ student.user.email }}</option>
+                    {% endfor %}
+                </select>
+                {% else %}
+                <p>No Students exist in this Department</p>
+                {% endif %}
+                </td>
+
+
+                {% if request.user.is_authenticated and request.user.role.name == 'admin' %}
+				<td>
+					<a class="btn btn-info btn-sm" href="{% url 'department_update' pk=department.id %}">Edit</a>
+					<form class="d-inline-block" action="{% url 'department_delete' pk=department.id %}" method="POST">
+						{% csrf_token %}
+						<input type="hidden" name="id" value="{{ department_delete }}">
+						<input class="btn btn-danger btn-sm" type="submit" value="Delete">
+					</form>
+				</td>
+				{% endif %}
+
+
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

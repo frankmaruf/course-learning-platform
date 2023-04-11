@@ -1,0 +1,172 @@
+{% extends "base/base.html" %}
+{% block body %}
+<style>
+  
+  #search-bar {
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+  }
+  #search-results {
+    margin: 10px;
+    font-size: 16px;
+  }
+</style>
+<div class="container">
+	<form action="{% url 'course_create' %}" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" class="form-control" id="description" name="description" required>
+    </div>
+  	<div class="form-group">
+      <label for="image">Image:</label>
+      <input type="file" class="form-control-file" id="image" name="image" required>
+    </div>
+    <div class="form-group">
+      <label for="teacher">Teacher:</label>
+      <a class="btn btn-outline-success" href="{% url 'create_teacher' %}"> Create Teacher </a>
+  <!-- For Ajax Teacher Search -->
+  <div class="form-group">
+    <label for="teacher-email">Teacher Email:</label>
+    <input type="text" placeholder="Search Teacher" class="form-control" id="teacher-email" name="teacher-email">
+  </div>
+  <select class="form-control" name="teacher" id="teacher-search-results">
+
+  </select>
+  <!-- Ajax results -->
+  <!-- {% if results %}
+<ul>
+  {% for result in results %}
+  <li><a href="{% url 'course_detail' result.id %}">{{ result.name }}</a></li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No results found.</p>
+{% endif %} -->
+<!-- For Teacher Select -->
+
+<div class="form-group">
+  <label for="department">Select Department:</label>
+  <select class="form-control" name="department" id="department" required>
+      {% if departments %}
+          {% for department in departments %}
+              <option value="{{ department.id }}">{{ department.name }}</option>
+          {% endfor %}
+      {% else %}
+          <a class="btn btn-outline-secondary" href="{% url 'department_create' %}">Create Department </a>
+      {% endif %}
+  </select>
+</div>
+
+
+
+<div>
+      <select class="form-control" name="teacher" id="teacher">
+      {% if teachers %}
+              {% for teacher in teachers %}
+                <option value="{{ teacher.id }}">{{ teacher.user.email }}</option>
+              {% endfor %}
+            </select>
+            {% endif %}
+          </div>
+  <div>
+    <label>Students:</label>
+    <a class="btn btn-outline-success" href="{% url 'create_student' %}">Create Create</a>
+    <input type="text" placeholder="Search Student" class="form-control" id="student-email" name="student-email">
+    <div id="student">
+
+    </div>
+  </div>
+  
+
+  <div id="student_result">
+  {% for student in students %}
+        <input type="checkbox" name="students" value="{{ student.id }}">
+        <label>{{ student.user.email }}</label><br>
+        {% endfor %}
+      </div>
+
+
+		<input type="submit"  class="btn btn-primary" value="Create">
+	</form>
+</div>
+<script>
+   $('#teacher-email').on('input', function() {
+  var query = $(this).val();
+  $.ajax({
+    url: '/search_teachers/',
+    data: {q: query},
+    dataType: 'json',
+    success: function(data) {
+      var results = data.results;
+      var $searchResults = $('#teacher-search-results');
+      $searchResults.empty();
+      if (results.length) {
+        $('#teacher').hide();
+        $.each(results, function(i, result) {
+          var $searchResults = $('#teacher-search-results');
+  $searchResults.show();
+          var $option = $('<option>');
+          $option.text(result.email);
+          $option.val(result.id)
+          $searchResults.append($option);
+        });
+      } else {
+          $('#teacher').show();
+          $searchResults.hide();
+      }
+    }
+  });
+});
+$(document).ready(function() {
+  var $searchResults = $('#teacher-search-results');
+  $searchResults.hide();
+});
+
+
+
+
+
+
+$('#student-email').on('input', function() {
+  var query = $(this).val();
+  $.ajax({
+    url: '/search_students/',
+    data: {q: query},
+    dataType: 'json',
+    success: function(data) {
+  console.log(data)
+  var results = data.results;
+  var $searchResults = $('#student');
+  var $student_for_loop_ =  $('#student_result');
+  $student_for_loop_.hide();
+  $searchResults.empty(); 
+  if (results.length) {
+    $('#student').show();
+    $.each(results, function(i, result) {
+      var $checkbox = $('<input name="students" type="checkbox">');
+      $checkbox.attr('id', 'student-' + result.id);
+      $checkbox.val(result.id);
+      var $label = $('<label>').text(result.email);
+      $label.attr('for', 'student-' + result.id);
+      $searchResults.append($checkbox).append($label).append('<br>');
+    });
+    $('#student_result').hide();
+  } else {
+    $('#student_result').show();
+  }
+}
+  });
+});
+
+</script>
+  {% endblock %}
+

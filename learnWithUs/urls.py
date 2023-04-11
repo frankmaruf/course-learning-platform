@@ -1,0 +1,43 @@
+from django.urls import path
+from learnWithUs import views
+# app_name = 'learn'
+urlpatterns = [
+    # path('', views.index, name='index'),
+    path('', views.dashboard, name='dashboard'),
+    path('roles/', views.RoleListView.as_view(), name='role_list'),
+    path('roles/create/', views.RoleCreateView.as_view(), name='role_create'),
+    path('roles/<int:pk>/update/', views.RoleUpdateView.as_view(), name='role_update'),
+    path('roles/<int:pk>/delete/', views.RoleDeleteView.as_view(), name='role_delete'),
+    # path('permissions/', views.PermissionListView.as_view(), name='permission_list'),
+    # path('permissions/create/', views.PermissionCreateView.as_view(), name='permission_create'),
+    # path('permissions/<int:pk>/update/', views.PermissionUpdateView.as_view(), name='permission_update'),
+    # path('permissions/<int:pk>/delete/', views.PermissionDeleteView.as_view(), name='permission_delete'),
+    path('signup/', views.signup, name='signup'),
+    path('users/<int:pk>', views.get_user_details, name='get_user_details'),
+    path('search_users/', views.search_users, name='search_users'),
+    path('all_users/', views.all_users, name='all_users'),
+    path('user_update/<int:pk>', views.user_update, name='user_update'),
+    path('user_delete/<int:pk>', views.user_delete, name='user_delete'),
+    path('login/', views.login_user, name='login'),
+    path('logout/',views.logout_user,name = 'logout'),
+    path('courses/', views.CourseListView.as_view(), name='course_list'),
+    path('courses/create/', views.course_create, name='course_create'),
+    path('courses/<int:pk>/update/', views.course_update, name='course_update'),
+    path('courses/<int:pk>/delete/', views.CourseDeleteView.as_view(), name='course_delete'),
+    path('courses/<int:pk>/update/', views.course_update, name='course_update'),
+    path('create_teacher/', views.create_teacher, name='create_teacher'),
+    path('teachers/', views.teacher_list_view, name='teacher_list'),
+    path('search_teachers/', views.search_teachers, name='search_teachers'),
+    path('ajax-test/', views.ajax_test, name='ajax_test'),
+    path('create_student/', views.create_student, name='create_student'),
+    path('students/', views.student_list_view, name='student_list'),
+    path('search_students/', views.search_students, name='search_students'),
+    path('departments/', views.department_list_view, name='department_list'),
+    path('departments/create/', views.create_department, name='department_create'),
+    path('departments/<int:pk>/update/', views.update_department, name='department_update'),
+    path('departments/<int:pk>/delete/', views.delete_department, name='department_delete'),
+    path('test_condition',views.test_condition,name='test-condition'),
+    # path('assign_role/<int:user_id>/', views.assign_role, name='assign_role'),
+    ################### Group-Permission ##########################
+    path('group-permissions/',views.group_permissions,name='group_list')
+]

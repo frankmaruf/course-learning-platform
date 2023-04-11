@@ -1,0 +1,166 @@
+<style>
+li span {
+  color: #f00;
+}
+.autocomplete-items .selected {
+  background-color: #c2b6b6;
+}
+
+  .search-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  #search-input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+
+  .autocomplete-items {
+    position: absolute;
+    z-index: 999;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+  }
+
+  .autocomplete-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .autocomplete-item a {
+    text-decoration: none;
+  }
+  .autocomplete-item:hover {
+    background-color: #ddd;
+  }
+</style>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" >
+    <div class="container-fluid">
+      {% if request.user.is_authenticated and request.user.role.name == 'admin' %}
+        <a class="navbar-brand" href="{% url "dashboard" %}">Dashboard</a> 
+        {% endif %}
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+          <li class="nav-item">
+            <li><a class="navbar-brand" href="{% url "teacher_list" %}">Teacher</a> </li>
+          </li>
+          <li class="nav-item">
+            <li><a class="navbar-brand" href="{% url "student_list" %}">Student</a> </li>
+          </li>
+          <li class="nav-item">
+            <li><a class="navbar-brand" href="{% url "course_list" %}">Course</a> </li>
+          </li>
+          {% if not request.user.is_authenticated %}
+          <a class="btn btn-primary mb-3" href="{% url 'signup' %}">Signup</a>
+          <a class="btn btn-primary mb-3" href="{% url 'login' %}">Login</a>
+          {% else %}
+          
+          <a class="btn btn-primary mb-3" href="{% url 'logout' %}">Logout</a>
+          {% endif %}
+          {% if user_role %}
+          <li class="ml-4">You are {{ user_role|capfirst }}</li>
+      {% endif %}
+        </ul>
+      </div>
+      <div class="navbar navbar-light bg-light">
+          <input type="text" id="search-input" placeholder="Search Teacher or Student">
+          <ul class="autocomplete-items"></ul>
+      </div>
+    </div>
+  </nav>
+  <script>
+const searchInput = document.getElementById('search-input');
+const autocompleteContainer = document.querySelector('.autocomplete-items');
+let selectedResultIndex = -1;
+let allUsers = [];
+
+$.ajax({
+  url: '/all_users/',
+  dataType: 'json',
+  success: function(response) {
+    allUsers = response.results;
+    searchInput.addEventListener('input', function(event) {
+      const query = this.value;
+      selectedResultIndex = -1;
+
+      // Filter the allUsers array based on the search query
+      const filteredResults = allUsers.filter(function(result) {
+        return result.username.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+      });
+
+      // Clear the autocomplete container
+      autocompleteContainer.innerHTML = '';
+
+      // Loop through the search results and display them in the autocomplete container
+      filteredResults.forEach(function(result, index) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.innerHTML = result.username;
+        a.href = '/users/' + result.id;
+        li.classList.add('autocomplete-item');
+        li.setAttribute('value', result.username);
+
+        li.addEventListener('click', function() {
+          searchInput.value = this.getAttribute('value');
+          searchInput.setAttribute('value', this.getAttribute('value'));
+          window.location.href = a.href;
+          autocompleteContainer.innerHTML = '';
+        });
+        li.appendChild(a);
+        autocompleteContainer.appendChild(li);
+
+        // Highlight the first result by default
+        if (index === 0) {
+          li.classList.add('selected');
+        }
+      });
+    });
+  }
+});
+
+searchInput.addEventListener('keydown', function(event) {
+  const results = autocompleteContainer.querySelectorAll('.autocomplete-item');
+  if (event.key === 'ArrowDown') {
+    // Move selection down
+    selectedResultIndex++;
+    if (selectedResultIndex >= results.length) {
+      selectedResultIndex = 0;
+    }
+  } else if (event.key === 'ArrowUp') {
+    // Move selection up
+    selectedResultIndex--;
+    if (selectedResultIndex < 0) {
+      selectedResultIndex = results.length - 1;
+    }
+  } else if (event.key === 'Enter') {
+    // Select the highlighted result
+    event.preventDefault();
+    if (selectedResultIndex >= 0 && selectedResultIndex < results.length) {
+      results[selectedResultIndex].click();
+    }
+  }
+
+  // Update the selected result's highlight and scroll to it
+  results.forEach(function(result, index) {
+    if (index === selectedResultIndex) {
+      result.classList.add('selected');
+      result.focus();
+      autocompleteContainer.scrollTop = result.offsetTop - autocompleteContainer.offsetTop;
+    } else {
+      result.classList.remove('selected');
+    }
+  });
+});
+  </script>

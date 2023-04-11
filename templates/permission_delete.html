@@ -1,0 +1,10 @@
+{% extends "base/base.html" %}
+{% block body %}
+	<h1>Delete Permission</h1>
+	<p>Are you sure you want to delete the "{{ permission.name }}" permission?</p>
+	<form action="{% url 'permission_delete' permission.id %}" method="POST">
+		{% csrf_token %}
+		<input type="submit" value="Yes">
+		<a href="{% url 'permission_list' %}">No, go back to permission list</a>
+	</form>
+	{% endblock %}

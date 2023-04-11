@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+{% block body %}
+  <h1>All Groups and their Permissions</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Group Name</th>
+        <th>Permissions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for group in groups %}
+        <tr>
+          <td>{{ group.name }}</td>
+          <td>
+            {% for permission in group.permissions.all %}
+              {{ permission.codename }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+              No permissions found
+            {% endfor %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="2">No groups found</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

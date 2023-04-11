@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block body %}
+
+<h1>Sidebar Items</h1>
+<ul>
+  {% for item in sidebar_items %}
+    <li>{{ item.title }} (<a href="{% url 'sidebar:update' item.pk %}">Edit</a>, <a href="{% url 'sidebar:delete' item.pk %}">Delete</a>)</li>
+    {% if item.child_items.exists %}
+      <ul>
+        {% for child in item.child_items.all %}
+          <li>{{ child.title }} (<a href="{% url 'sidebar:update' child.pk %}">Edit</a>, <a href="{% url 'sidebar:delete' child.pk %}">Delete</a>)</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+</ul>
+<p><a href="{% url 'sidebar:create' %}">Add New Item</a></p>
+
+
+
+{% endblock %}

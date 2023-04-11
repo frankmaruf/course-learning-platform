@@ -1,0 +1,10 @@
+{% extends "base/base.html" %}
+{% block body %}
+	<h1>Create Role</h1>
+	<form action="{% url 'role_create' %}" method="POST">
+		{% csrf_token %}
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name" required>
+		<input type="submit" value="Create">
+	</form>
+	{% endblock %}

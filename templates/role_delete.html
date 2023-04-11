@@ -1,0 +1,10 @@
+{% extends "base/base.html" %}
+{% block body %}
+	<h1>Delete Role</h1>
+	<p>Are you sure you want to delete the "{{ role.name }}" role?</p>
+	<form action="{% url 'role_delete' role.id %}" method="POST">
+		{% csrf_token %}
+		<input type="submit" value="Yes">
+		<a href="{% url 'role_list' %}">No, go back to role list</a>
+	</form>
+	{% endblock %}

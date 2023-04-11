@@ -1,0 +1,78 @@
+{% extends "base/base.html" %}
+{% block body %}
+    <h1>Create Teacher</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+    <div class="form-group row">
+      <label for="username" class="col-sm-2 col-form-label">Username:</label>
+      <div class="col-sm-10">
+      <input type="text" class="form-control" name="username" required />
+    </div>
+    </div> 
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="first_name">First Name:</label>
+      <div class="col-sm-10">
+      <input type="text" class="form-control" name="first_name" required />
+    </div>
+  </div>
+  <div class="form-group row">
+      <label for="last_name" class="col-sm-2 col-form-label">Last Name:</label>
+      <div class="col-sm-10">
+      <input type="text" class="form-control" name="last_name" required />
+    </div>
+  </div>
+  <div class="form-group row">
+      <label for="email" class="col-sm-2 col-form-label">Email:</label>
+      <div class="col-sm-10">
+      <input type="email" class="form-control" name="email" required />
+      </div>
+    </div>
+    <!-- <div class="form-group row">
+      <label for="password" class="col-sm-2 col-form-label" >Password:</label>
+      <div class="col-sm-10">
+      <input type="password" class="form-control" name="password1" required />
+    </div> 
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="confirm_password">Confirm Password:</label>
+      <div class="col-sm-10">
+      <input
+        id="confirm_password"
+        type="password"
+        name="password2"
+        class="form-control"
+        required
+      />
+    </div> 
+    </div> -->
+
+
+    <div>
+      <label for="department">Select Department:</label>
+      <select class="form-control" name="department" id="department">
+      {% if departments %}
+        {% for department in departments %}
+        <option value="{{ department.id }}">{{ department.name }}</option>
+        {% endfor %}
+      {% else %}
+      <a class="btn btn-outline-secondary" href="{% url 'department_create' %}">Create Department </a>
+      {% endif %}
+    </div>
+
+      <div id="teacher-fields" style="display: block" class="form-group row">
+        <label class="col-sm-2 col-form-label"  for="tellUsYourSpeciality">Teacher Specialty:</label>
+        <textarea
+          id="tellUsYourSpeciality"
+          name="tellUsYourSpeciality"
+          class="form-control"
+          rows="4"
+          cols="50"
+          placeholder="Tell us about the Teacher Specialty..."
+        ></textarea>
+      </div>
+      <div class="form-group">
+      <button type="submit" class="btn btn-primary mb-10 float-right">Create Teacher</button><br>
+    </div>
+    </form>
+{% endblock %}

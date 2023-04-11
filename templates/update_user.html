@@ -1,0 +1,160 @@
+{% extends "base/base.html" %}
+{% block body %}
+    <h1>Update User</h1>
+    <form method="post" action="{% url 'user_update' pk=pk %}" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- <div class="form-group">
+        <label for="{{ form.custom_field.id_for_label }}">Custom Field:</label>
+        <input type="text" name="{{ form.custom_field.name }}" id="{{ form.custom_field.id_for_label }}"
+               value="{{ form.custom_field.value|default:'' }}" class="form-control" required>
+        {% if form.custom_field.errors %}
+            <div class="invalid-feedback">
+                {% for error in form.custom_field.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div> -->
+
+    <div class="form-group row">
+      <label for="username" class="col-sm-2 col-form-label">Username:</label>
+      <div class="col-sm-10">
+      <input type="text" value="{{ user.username }}" class="form-control" name="username" required />
+    </div>
+    </div> 
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="first_name">First Name:</label>
+      <div class="col-sm-10">
+      <input type="text" class="form-control" value="{{ user.first_name }}" name="first_name" required />
+    </div>
+  </div>
+  <div class="form-group row">
+      <label for="last_name" class="col-sm-2 col-form-label">Last Name:</label>
+      <div class="col-sm-10">
+      <input type="text" class="form-control" value="{{ user.last_name }}" name="last_name" required />
+    </div>
+  </div>
+  <div class="form-group row">
+      <label for="email" class="col-sm-2 col-form-label">Email:</label>
+      <div class="col-sm-10">
+      <input type="email" class="form-control" value="{{ user.email }}" name="email" required />
+      </div>
+    </div>
+    <!-- <div class="form-group row">
+      <label for="password" class="col-sm-2 col-form-label" >Password:</label>
+      <div class="col-sm-10">
+      <input type="password" class="form-control" name="password1" required />
+    </div> 
+    </div> -->
+    <!-- <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="confirm_password">Confirm Password:</label>
+      <div class="col-sm-10">
+      <input
+        id="confirm_password"
+        type="password"
+        name="password2"
+        class="form-control"
+        required
+      />
+    </div> 
+    </div> -->
+      <!-- {{ form.as_p }} -->
+      <!-- <label for="role">Role:</label>
+        <select name="role">
+            {% for role in roles %}
+            <option value="{{ role.id }}">{{ role.name }}</option>
+            {% endfor %}
+        </select><br><br> -->
+      <!-- Define the user choice to make this dynamic -->
+      <!-- <div class="form-group row">
+      <label class="col-sm-2 col-form-label"  for="defineYourSelf">Who Are You:</label>
+      <div class="col-sm-10">
+      <select class="form-control" id="defineYourSelf" name="define_your_self">
+        <option value="">------------</option>
+        <option value="teacher">Teacher</option>
+        <option value="student">Student</option>
+      </select>
+      </div>
+    </div> -->
+
+      <!-- For Get the total course list for Student -->
+      <!-- <div id="student-fields" style="display: none">
+        <label for="courses">Select Course:</label>
+        <select class="form-control" id="courses" name="courses">
+          {% for course in courses %}
+          <option value="{{course.id}}">{{course.name}}</option>
+          {% endfor %}
+        </select>
+      </div> -->
+
+      <!-- <div id="teacher-fields" style="display: none">
+        <label for="tellUsYourSpeciality">Tell us about your Specialty:</label>
+        <textarea
+          id="tellUsYourSpeciality"
+          name="tellUsYourSpeciality"
+          class="form-control"
+          rows="4"
+          cols="50"
+          placeholder="Tell us about your Specialty..."
+        ></textarea>
+      </div> -->
+
+
+
+
+      <div class="form-group">
+        <label for="department">Select Department:</label>
+        <select class="form-control" name="department" id="department">
+            {% if departments %}
+                {% for department in departments %}
+                    <option value="{{ department.id }}">{{ department.name }}</option>
+                {% endfor %}
+            {% else %}
+                <a class="btn btn-outline-secondary" href="{% url 'department_create' %}">Create Department </a>
+            {% endif %}
+        </select>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="form-group">
+      <button type="submit" class="btn btn-primary mb-10 float-right">update</button><br>
+    </div>
+    </form>
+  <!-- <script>
+    // Get the DOM elements for the fields
+    const teacherFields = document.getElementById("teacher-fields");
+    const studentFields = document.getElementById("student-fields");
+
+    // Add an event listener to the select element
+    const defineYourSelf = document.getElementById("defineYourSelf");
+    defineYourSelf.addEventListener("change", function () {
+      // If the user selects "Teacher", show the teacher fields and hide the student fields
+      if (defineYourSelf.value === "") {
+        alert("Please select your role.");
+        defineYourSelf.focus();
+        return false;
+      } else if (defineYourSelf.value === "teacher") {
+        teacherFields.style.display = "block";
+        studentFields.style.display = "none";
+        teacherFields.setAttribute("required");
+      }
+      // If the user selects "Student", show the student fields and hide the teacher fields
+      else if (defineYourSelf.value === "student") {
+        studentFields.style.display = "block";
+        teacherFields.style.display = "none";
+        studentFields.setAttribute("required");
+      }
+    });
+  </script> -->
+{% endblock %}

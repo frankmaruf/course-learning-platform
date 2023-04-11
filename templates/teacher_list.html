@@ -1,0 +1,58 @@
+{% extends "base/base.html" %}
+{% block body %}
+<div class="container">
+    <h1>Teacher List</h1>
+	<table class="table table-striped">
+		<thead class="thead-dark">
+		  <tr>
+			<th scope="col">Name</th>
+			<th scope="col">Email</th>
+			<th scope="col">Specialty</th>
+			<th scope="col">Teaching Course</th>
+			<th scope="col">Department</th>
+			{% if request.user.is_authenticated and request.user.role.name == 'admin' %}
+				<th scope="col">Actions</th>
+				{% endif %}
+		  </tr>
+		</thead>
+		<tbody>
+			{% if request.user.is_authenticated and request.user.role.name == 'admin' %}
+				<a class="btn btn-info btn-sm" href="{% url 'create_teacher' %}">Create Teacher</a>
+				{% endif %}
+		  {% for teacher in teachers %}
+		  <tr>
+			<td>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</td>
+			<td>{{ teacher.user.email }}</td>
+			<td>{{ teacher.specialty }}</td>
+			<td>
+				{% if teacher.courses.all %}
+                <select class="form-control">
+                    {% for course in teacher.courses.all %}
+                        <option>{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                No courses
+            {% endif %}
+		</td>
+		<td>{{ teacher.department.name }}</td>
+		{% if request.user.is_authenticated and request.user.role.name == 'admin' %}
+				<td>
+					<a class="btn btn-info btn-sm" href="{% url 'user_update' pk=teacher.user.id %}">Edit</a>
+					<form class="d-inline-block" action="{% url 'user_delete' pk=teacher.user.id %}" method="POST">
+						{% csrf_token %}
+						<input type="hidden" name="id" value="{{ teacher.user.id }}">
+						<input class="btn btn-danger btn-sm" type="submit" value="Delete">
+					</form>
+				</td>
+				{% endif %}
+		  </tr>
+		  {% empty %}
+			<tr>
+				<td colspan="3">No Teacher found.</td>
+			</tr>
+		  {% endfor %}
+		</tbody>
+	  </table>
+  </div>
+	{% endblock %}

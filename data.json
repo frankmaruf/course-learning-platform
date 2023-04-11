@@ -1,0 +1,300 @@
+[
+    {
+        "model": "learnWithUs.role",
+        "pk": 1,
+        "fields": {
+            "name": "admin"
+        }
+    },
+    {
+        "model": "learnWithUs.customuser",
+        "pk": 1,
+        "fields": {
+            "first_name": "Super",
+            "last_name": "Admin",
+            "email": "admin@mail.com",
+            "username": "admin",
+            "is_staff": true,
+            "is_superuser": true,
+            "password": "pbkdf2_sha256$216000$ENeYa1J9BOrD$cqT41Xdqr8zgGrEC9SVa8e69WZOgdspNhvzbUZAGfGc=",
+            "role": "1",
+            "date_joined": "2022-02-22T10:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.customuser",
+        "pk": 2,
+        "fields": {
+            "first_name": "Mr.",
+            "last_name": "Teacher",
+            "email": "teacher@mail.com",
+            "username": "teacher",
+            "is_staff": false,
+            "is_superuser": false,
+            "password": "pbkdf2_sha256$216000$ENeYa1J9BOrD$cqT41Xdqr8zgGrEC9SVa8e69WZOgdspNhvzbUZAGfGc=",
+            "last_login": "2022-02-22T10:00:00Z",
+            "date_joined": "2022-02-22T10:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.customuser",
+        "pk": 3,
+        "fields": {
+            "first_name": "Mr.",
+            "last_name": "Teacher 2",
+            "email": "teacher2@mail.com",
+            "username": "teacher2",
+            "is_staff": false,
+            "is_superuser": false,
+            "password": "pbkdf2_sha256$216000$ENeYa1J9BOrD$cqT41Xdqr8zgGrEC9SVa8e69WZOgdspNhvzbUZAGfGc=",
+            "last_login": "2022-02-22T10:00:00Z",
+            "date_joined": "2022-02-22T10:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.customuser",
+        "pk": 4,
+        "fields": {
+            "first_name": "Mr.",
+            "last_name": "Student",
+            "username": "student",
+            "email": "student@mail.com",
+            "password": "pbkdf2_sha256$216000$ENeYa1J9BOrD$cqT41Xdqr8zgGrEC9SVa8e69WZOgdspNhvzbUZAGfGc=",
+            "is_staff": false,
+            "is_superuser": false,
+            "date_joined": "2022-02-22T10:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.customuser",
+        "pk": 5,
+        "fields": {
+            "first_name": "Mr.",
+            "last_name": "Student 2",
+            "email": "student2@mail.com",
+            "password": "pbkdf2_sha256$216000$ENeYa1J9BOrD$cqT41Xdqr8zgGrEC9SVa8e69WZOgdspNhvzbUZAGfGc=",
+            "username": "student2",
+            "is_staff": false,
+            "is_superuser": false,
+            "date_joined": "2022-02-22T10:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.course",
+        "pk": 1,
+        "fields": {
+            "name": "Introduction to Python",
+            "description": "Learn the basic of Python programming language.",
+            "department": 1,
+            "image": "course_images/python.jpg",
+            "created_at": "2022-02-26T12:00:00Z",
+            "updated_at": "2022-02-26T12:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.course",
+        "pk": 2,
+        "fields": {
+            "name": "Web Development with Django",
+            "department": 1,
+            "description": "Learn how to build web applications using Django framework.",
+            "image": "course_images/django.jpg",
+            "created_at": "2022-02-27T12:00:00Z",
+            "updated_at": "2022-02-27T12:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.department",
+        "pk": 1,
+        "fields":{
+            "name" : "Computer Science"
+        }
+    },
+    {
+        "model": "learnWithUs.department",
+        "pk": 2,
+        "fields":{
+            "name" : "Electrical Engineering"
+        }
+    },
+    {
+        "model": "learnWithUs.department",
+        "pk": 3,
+        "fields":{
+            "name" : "Mathematics"
+        }
+    },
+    {
+        "model": "learnWithUs.department",
+        "pk": 4,
+        "fields":{
+            "name" : "Chemistry"
+        }
+    },
+    {
+        "model": "learnWithUs.department",
+        "pk": 5,
+        "fields":{
+            "name" : "Biology"
+        }
+    },
+    {
+        "model": "learnWithUs.department",
+        "pk": 6,
+        "fields":{
+            "name" : "History"
+        }
+    },
+    {
+        "model": "learnWithUs.teacher",
+        "pk": 1,
+        "fields": {
+            "user": 2,
+            "specialty": "Programmer",
+            "department" : 1,
+            "created_at": "2022-02-22T10:00:00Z",
+            "updated_at": "2022-02-22T10:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.teacher",
+        "pk": 2,
+        "fields": {
+            "user": 3,
+            "specialty": "Software Engineer",
+            "department" : 1,
+            "created_at": "2022-02-22T10:00:00Z",
+            "updated_at": "2022-02-22T10:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.student",
+        "pk": 1,
+        "fields": {
+            "user": 4,
+            "department" : 1,
+            "created_at": "2022-02-27T12:00:00Z",
+            "updated_at": "2022-02-27T12:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.student",
+        "pk": 2,
+        "fields": {
+            "user": 5,
+            "department" : 1,
+            "created_at": "2022-02-27T12:00:00Z",
+            "updated_at": "2022-02-27T12:00:00Z"
+        }
+    },
+    {
+        "model": "learnWithUs.coursestudentnotification",
+        "pk": 1,
+        "fields": {
+            "notified": true,
+            "course": 1,
+            "student_id": 1
+        }
+    },
+    {
+        "model": "learnWithUs.coursestudentnotification",
+        "pk": 2,
+        "fields": {
+            "notified": true,
+            "course": 2,
+            "student_id": 2
+        }
+    },
+    {
+        "model": "learnWithUs.courseteachernotification",
+        "pk": 1,
+        "fields": {
+            "notified": true,
+            "course": 1,
+            "teacher_id": 1
+        }
+    },
+    {
+        "model": "learnWithUs.courseteachernotification",
+        "pk": 4,
+        "fields": {
+            "notified": true,
+            "course": 2,
+            "teacher_id": 2
+        }
+    },
+    {
+        "model": "learnWithUs.sidebaritem",
+        "pk":1,
+        "fields":{
+            "title": "Dashboard",
+            "url" : "/",
+            "position": 1
+        }
+    },
+    {
+        "model": "learnWithUs.sidebaritem",
+        "pk":2,
+        "fields":{
+            "title": "Students",
+            "url" : "/students",
+            "position": 2
+        }
+    },
+    {
+        "model": "learnWithUs.sidebaritem",
+        "pk":3,
+        "fields":{
+            "title": "Teachers",
+            "url" : "/teachers",
+            "position": 3
+        }
+    },
+    {
+        "model": "learnWithUs.sidebaritem",
+        "pk":4,
+        "fields":{
+            "title": "Departments",
+            "url" : "/departments",
+            "position": 4
+        }
+    },
+    {
+        "model": "learnWithUs.sidebaritem",
+        "pk":5,
+        "fields":{
+            "title": "Courses",
+            "url" : "/courses",
+            "position": 5
+        }
+    },
+    
+    {
+        "model": "learnWithUs.sidebaritem",
+        "pk":6,
+        "fields":{
+            "title": "Sign up",
+            "url" : "/signup",
+            "position": 6
+        }
+    },
+    {
+        "model": "learnWithUs.sidebaritem",
+        "pk":7,
+        "fields":{
+            "title": "Login",
+            "url" : "/login",
+            "position": 7
+        }
+    },
+    {
+        "model": "learnWithUs.sidebaritem",
+        "pk":8,
+        "fields":{
+            "title": "Sign up",
+            "url" : "/signup",
+            "position": 8
+        }
+    }
+    
+]

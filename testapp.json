@@ -1,0 +1,92 @@
+[
+    {
+        "model": "testapp.product",
+        "pk": 1,
+        "fields": {
+            "name": "Product 1",
+            "price": 10.0
+        }
+    },
+    {
+        "model": "testapp.product",
+        "pk": 2,
+        "fields": {
+            "name": "Product 2",
+            "price": 15.0
+        }
+    },
+    {
+        "model": "testapp.product",
+        "pk": 3,
+        "fields": {
+            "name": "Product 3",
+            "price": 20.0
+        }
+    },
+    {
+        "model": "testapp.product",
+        "pk": 4,
+        "fields": {
+            "name": "Product 4",
+            "price": 25.0
+        }
+    },
+    {
+        "model": "testapp.product",
+        "pk": 5,
+        "fields": {
+            "name": "Product 5",
+            "price": 30.0
+        }
+    },
+    {
+        "model": "testapp.sale",
+        "pk": 1,
+        "fields": {
+            "product": 1,
+            "date": "2023-01-01",
+            "quantity": 2,
+            "amount": 20.0
+        }
+    },
+    {
+        "model": "testapp.sale",
+        "pk": 2,
+        "fields": {
+            "product": 2,
+            "date": "2023-01-01",
+            "quantity": 1,
+            "amount": 15.0
+        }
+    },
+    {
+        "model": "testapp.sale",
+        "pk": 3,
+        "fields": {
+            "product": 1,
+            "date": "2023-01-02",
+            "quantity": 3,
+            "amount": 30.0
+        }
+    },
+    {
+        "model": "testapp.sale",
+        "pk": 4,
+        "fields": {
+            "product": 3,
+            "date": "2023-01-03",
+            "quantity": 2,
+            "amount": 25.0
+        }
+    },
+    {
+        "model": "testapp.sale",
+        "pk": 5,
+        "fields": {
+            "product": 2,
+            "date": "2023-01-04",
+            "quantity": 1,
+            "amount": 15.0
+        }
+    }
+]

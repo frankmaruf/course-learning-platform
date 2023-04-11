@@ -1,0 +1,34 @@
+{% extends "base/base.html" %}
+{% block body %}
+	<h1>Role List</h1>
+	<a href="{% url 'role_create' %}">Create Role</a>
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for role in roles %}
+			<tr>
+				<td>{{ role.id }}</td>
+				<td>{{ role.name }}</td>
+				<td>
+					<a href="{% url 'role_update' role.id %}">Edit</a>
+					<form action="{% url 'role_delete' role.id %}" method="POST">
+						{% csrf_token %}
+						<input type="hidden" name="id" value="{{ role.id }}">
+						<input type="submit" value="Delete">
+					</form>
+				</td>
+			</tr>
+			{% empty %}
+			<tr>
+				<td colspan="3">No roles found.</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+{% block body %}
+<h1>Assign Role and Permissions to {{ user.first_name }}</h1>
+
+<form method="POST">
+  {% csrf_token %}
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label"  for="role">Role:</label>
+    <div class="col-sm-10">
+    <select class="form-control" name="role" id="role">
+      {% for role in roles %}
+        <option value="{{ role.id }}">{{ role.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  </div>
+  <!-- <div>
+    <label>Permissions:</label>
+    {% for permission in permissions %}
+      <div>
+        <input type="checkbox" name="permissions" value="{{ permission.id }}">
+        <label>{{ permission.name }}</label>
+      </div>
+      {% empty %}
+      <a href="{% url 'permission/create' %}">Permission Create</a>
+    {% endfor %}
+  </div> -->
+  <button class="btn btn-outline-success" type="submit">Assign Role To User</button>
+</form>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base/base.html" %}
+{% block body %}
+<div class="container">
+	<form action="{% url 'course_update' pk=pk %}" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="form-group">
+      		<label for="name">Name:</label>
+      		<input type="text" class="form-control" id="name" name="name" value="{{ course.name}}" required>
+    	</div>
+    	<div class="form-group">
+      		<label for="description">Description:</label>
+      		<input type="text" class="form-control" id="description" name="description" value="{{ course.description }}" required>
+    	</div>
+  		<div class="form-group">
+      		<label for="image">Image:</label>
+      		<input type="file" class="form-control-file" id="image" name="image">
+    	</div>
+
+
+<div class="form-group">
+  <label for="department">Select Department:</label>
+  <select class="form-control" name="department" id="department" required>
+      {% if departments %}
+          {% for department in departments %}
+              <option {% if course in department.courses.all %} selected {% endif %} value="{{ department.id }}">{{ department.name }}</option>
+          {% endfor %}
+      {% else %}
+          <a class="btn btn-outline-secondary" href="{% url 'department_create' %}">Create Department </a>
+      {% endif %}
+  </select>
+</div>
+
+
+
+
+
+
+
+    	<div class="form-group">
+      		<label for="teacher">Teacher:</label>
+			  <a class="btn btn-outline-success" href="{% url 'create_teacher' %}"> Create Teacher </a>
+      		<select class="form-control" name="teacher" id="teacher" required>
+        		{% for teacher in teachers %}
+        		<option value="{{ teacher.id }}" {% if teacher in course.teachers.all %}selected{% endif %}>{{ teacher.user.email }}</option>
+        		{% endfor %}
+      		</select>
+    	</div>
+        <div>
+            <label>Students:</label>
+            <a class="btn btn-outline-success" href="{% url 'create_student' %}">Create Student</a>
+            {% for student in students %}
+              <div>
+                <input type="checkbox" name="students" value="{{ student.id }}" {% if student in course.students.all %}checked{% endif %}>
+
+                <label>{{ student.user.email }}</label>
+              </div>
+             {% endfor %}
+          </div>
+		<input type="submit"  class="btn btn-primary" value="Update">
+	</form>
+</div>
+{% endblock %}

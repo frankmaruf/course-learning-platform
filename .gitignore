@@ -1,0 +1,18 @@
+# Gitignore for Django projects
+
+# Python compiled files
+env/
+*.pyc
+__pycache__/
+
+# Django generated files
+*.log
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+media
+course_images
+
+# VSCode files
+.vscode/
